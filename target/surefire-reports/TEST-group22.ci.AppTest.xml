@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="group22.ci.AppTest" time="0.04" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\johan\KTH\dd2480\Continuous-Integration\target\test-classes;C:\Users\johan\KTH\dd2480\Continuous-Integration\target\classes;C:\Users\johan\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\johan\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\johan\.m2\repository\org\mortbay\jetty\servlet-api\3.0.PFD20090525\servlet-api-3.0.PFD20090525.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-server\11.0.6\jetty-server-11.0.6.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\toolchain\jetty-jakarta-servlet-api\5.0.2\jetty-jakarta-servlet-api-5.0.2.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-http\11.0.6\jetty-http-11.0.6.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-util\11.0.6\jetty-util-11.0.6.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-io\11.0.6\jetty-io-11.0.6.jar;C:\Users\johan\.m2\repository\org\slf4j\slf4j-api\2.0.0-alpha1\slf4j-api-2.0.0-alpha1.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://openjdk.java.net/"/>
+    <property name="user.timezone" value="Europe/Berlin"/>
+    <property name="user.country.format" value="SE"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\OpenJDK\jdk-11.0.8.10-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\johan\AppData\Local\Temp\surefire10896913093005439366\surefirebooter4444077861756243220.jar C:\Users\johan\AppData\Local\Temp\surefire10896913093005439366 2022-02-08T11-05-27_396-jvmRun1 surefire17610665448444242860tmp surefire_016016989367906606725tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\johan\KTH\dd2480\Continuous-Integration\target\test-classes;C:\Users\johan\KTH\dd2480\Continuous-Integration\target\classes;C:\Users\johan\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\johan\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\johan\.m2\repository\org\mortbay\jetty\servlet-api\3.0.PFD20090525\servlet-api-3.0.PFD20090525.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-server\11.0.6\jetty-server-11.0.6.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\toolchain\jetty-jakarta-servlet-api\5.0.2\jetty-jakarta-servlet-api-5.0.2.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-http\11.0.6\jetty-http-11.0.6.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-util\11.0.6\jetty-util-11.0.6.jar;C:\Users\johan\.m2\repository\org\eclipse\jetty\jetty-io\11.0.6\jetty-io-11.0.6.jar;C:\Users\johan\.m2\repository\org\slf4j\slf4j-api\2.0.0-alpha1\slf4j-api-2.0.0-alpha1.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\johan"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2020-07-14"/>
+    <property name="java.home" value="C:\Program Files\OpenJDK\jdk-11.0.8.10-hotspot"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\johan\KTH\dd2480\Continuous-Integration"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\johan\AppData\Local\Temp\surefire10896913093005439366\surefirebooter4444077861756243220.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11.0.8-internal+0-adhoc..jdk11u"/>
+    <property name="user.name" value="johan"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\johan\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\johan\AppData\Local\Temp\"/>
+    <property name="java.version" value="11.0.8-internal"/>
+    <property name="user.dir" value="C:\Users\johan\KTH\dd2480\Continuous-Integration"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\OpenJDK\jdk-11.0.8.10-hotspot\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\OpenJDK\jdk-11.0.8.10-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\swipl\bin;C:\Users\johan\AppData\Local\Programs\Python\Python38\python;C:\Program Files\dotnet\;C:\Program Files (x86)\GnuWin32\bin;C:\Users\johan\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\johan\AppData\Local\Programs\Python\Python38\;C:\Users\johan\AppData\Local\Microsoft\WindowsApps;C:\Users\johan\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\johan\AppData\Roaming\npm;C:\Program Files\OpenJDK\jdk-11.0.8.10-hotspot\bin\java;C:\Program Files\Maven\apache-maven-3.8.4\bin;C:\Program Files (x86)\GnuWin32\bin;;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="N/A"/>
+    <property name="java.vm.version" value="11.0.8-internal+0-adhoc..jdk11u"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="shouldAnswerWithTrue" classname="group22.ci.AppTest" time="0.003"/>
+</testsuite>
