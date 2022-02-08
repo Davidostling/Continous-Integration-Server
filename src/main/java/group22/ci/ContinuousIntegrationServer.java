@@ -33,7 +33,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
             System.out.println("POST");
             try {
                 String received = request.getReader().lines().collect(Collectors.joining());
-                System.out.println("Information received: " + received);
                 JSONObject dataJSON = new JSONObject(received);
                 String ref = dataJSON.getString("ref");
                 JSONArray commmitarray = dataJSON.getJSONArray("commits");
