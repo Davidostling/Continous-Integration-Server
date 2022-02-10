@@ -20,10 +20,10 @@ public class BuildTest
     @Test
     public void successful_build() throws IOException
     {
-        String path = "mvn_test_projects/successful/demo";
-        boolean comp_result = ContinuousIntegrationServer.mavenCompile(path).result;
+        String path = "mvn_test_projects/successful/demo/";
+        boolean comp_result = ContinuousIntegrationServer.mavenCompile(path).getResult();
         assertTrue(comp_result);
-        boolean test_result = ContinuousIntegrationServer.mavenTest(path).result;
+        boolean test_result = ContinuousIntegrationServer.mavenTest(path).getResult();
         assertTrue(test_result);
     }
 
@@ -35,8 +35,8 @@ public class BuildTest
     @Test
     public void fail_compilation() throws IOException
     {
-        String path = "mvn_test_projects/failcompile/demo";
-        boolean comp_result = ContinuousIntegrationServer.mavenCompile(path).result;
+        String path = "mvn_test_projects/failcompile/demo/";
+        boolean comp_result = ContinuousIntegrationServer.mavenCompile(path).getResult();
         assertFalse(comp_result);
     }
 
@@ -48,8 +48,8 @@ public class BuildTest
     @Test
     public void fail_tests() throws IOException
     {
-        String path = "mvn_test_projects/failTest/demo";
-        boolean test_result = ContinuousIntegrationServer.mavenTest(path).result;
+        String path = "mvn_test_projects/failTest/demo/";
+        boolean test_result = ContinuousIntegrationServer.mavenTest(path).getResult();
         assertFalse(test_result);
     }
 }
