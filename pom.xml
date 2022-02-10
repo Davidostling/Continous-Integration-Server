@@ -21,6 +21,13 @@
 
 <dependencies>
 
+    <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.1</version>
+    </dependency>
+
+
 <!-- https://mvnrepository.com/artifact/org.json/json -->
 <dependency>
   <groupId>org.json</groupId>
