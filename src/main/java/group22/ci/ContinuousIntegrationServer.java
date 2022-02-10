@@ -179,9 +179,10 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8022);
         ContinuousIntegrationServer ci = new ContinuousIntegrationServer();
+        ci.setPayLoadHandler();
         server.setHandler(ci);
         server.start();
-        ci.setPayLoadHandler();
+        ci.ph.processQueue();
         server.join();
     }
 

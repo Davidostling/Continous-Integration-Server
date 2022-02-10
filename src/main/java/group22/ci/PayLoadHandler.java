@@ -13,7 +13,6 @@ public class PayLoadHandler {
 
     public PayLoadHandler() throws Exception {
         queue = new ConcurrentLinkedQueue<PayLoad>();
-        processQueue();
     }
 
     public void processQueue() throws Exception {
