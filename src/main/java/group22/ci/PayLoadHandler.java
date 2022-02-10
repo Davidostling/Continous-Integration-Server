@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 
 public class PayLoadHandler {
@@ -24,21 +25,22 @@ public class PayLoadHandler {
                     Thread.sleep(1500);
                 } else {
                     // prepare a new folder for the cloned repository
-                    File localPath = File.createTempFile("repo", "");
-
-                    if (!localPath.delete()) {
-                        throw new IOException("Could not delete temporary file " + localPath);
-                    }
+                    String path = "repo";
+                    FileUtils.deleteDirectory(new File(path));
                     // then clone
-                    System.out.println("Cloning from " + p.url + " to " + localPath);
+                    System.out.println("Cloning from " + p.url + " to " + path);
                     Git repo = Git.cloneRepository().setURI(p.url)
                             .setBranchesToClone(Arrays.asList(p.ref))
                             .setBranch(p.ref)
-                            .setDirectory(localPath)
+                            .setDirectory(new File(path))
                             .call();
                     repo.close();
-                    String compileRes = ContinuousIntegrationServer.mavenCompile("repo").message;
-                    String testRes = ContinuousIntegrationServer.mavenTest("repo").message;
+                    String compileRes = ContinuousIntegrationServer.mavenCompile(path + "/").message;
+                    String testRes = ContinuousIntegrationServer.mavenTest(path + "/").message;
+                    System.out.println("==========");
+                    System.out.println(compileRes);
+                    System.out.println(testRes);
+                    System.out.println("==========");
 
                     // mail the result
                     // store the build
