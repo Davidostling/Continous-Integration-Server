@@ -18,6 +18,7 @@ import org.json.*;
  * See the Jetty documentation for API documentation of those classes.
  */
 public class ContinuousIntegrationServer extends AbstractHandler {
+    PayLoadHandler ph;
     @Override
     public void handle(String target,
             Request baseRequest,
@@ -45,14 +46,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 
                 //Constructs the payload
                 PayLoad p = new PayLoad(id, ref, date, name, mail,  url);
-
-
+                ph.queue.add(p);
                 System.out.println(p);
             } catch (JSONException e) {
                 System.out.println("error");
                 e.printStackTrace();
             }
-            
 
 
         } else if(request.getMethod() == "GET"){
@@ -63,6 +62,10 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         response.getWriter().println("CI job done");
 
 
+    }
+
+    public void setPayLoadHandler() throws Exception{
+        ph = new PayLoadHandler();
     }
 	
 	/*
@@ -201,13 +204,13 @@ public class ContinuousIntegrationServer extends AbstractHandler {
             return output;
 	}
 	
-	
-
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception {
         Server server = new Server(8022);
-        server.setHandler(new ContinuousIntegrationServer());
+        ContinuousIntegrationServer ci = new ContinuousIntegrationServer();
+        server.setHandler(ci);
         server.start();
+        ci.setPayLoadHandler();
         server.join();
     }
 
