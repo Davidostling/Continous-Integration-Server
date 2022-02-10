@@ -52,7 +52,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
                 System.out.println("error");
                 e.printStackTrace();
             }
-            
 
 
         } else if(request.getMethod() == "GET"){
