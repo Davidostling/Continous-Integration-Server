@@ -11,39 +11,41 @@ import org.eclipse.jgit.api.Git;
 public class PayLoadHandler {
     ConcurrentLinkedQueue<PayLoad> queue;
 
-    public PayLoadHandler() throws Exception{
+    public PayLoadHandler() throws Exception {
         queue = new ConcurrentLinkedQueue<PayLoad>();
         processQueue();
     }
-    public void processQueue() throws Exception{
+
+    public void processQueue() throws Exception {
         try {
-            //something needs to be able to stop this loop
-            while(true){
+            // something needs to be able to stop this loop
+            while (true) {
                 PayLoad p = queue.poll();
-                if(p == null){
+                if (p == null) {
                     Thread.sleep(1500);
                 } else {
                     // prepare a new folder for the cloned repository
                     File localPath = File.createTempFile("repo", "");
-                    if(!localPath.delete()) {
-                      throw new IOException("Could not delete temporary file " + localPath);
+
+                    if (!localPath.delete()) {
+                        throw new IOException("Could not delete temporary file " + localPath);
                     }
                     // then clone
                     System.out.println("Cloning from " + p.url + " to " + localPath);
                     Git repo = Git.cloneRepository().setURI(p.url)
-                        .setBranchesToClone(Arrays.asList(p.ref))
-                        .setBranch(p.ref)
-                        .setDirectory(localPath)
-                        .call();
+                            .setBranchesToClone(Arrays.asList(p.ref))
+                            .setBranch(p.ref)
+                            .setDirectory(localPath)
+                            .call();
                     repo.close();
-                    String compileRes = ContinuousIntegrationServer.mavenCompile(localPath).message;
-                    String testRes = ContinuousIntegrationServer.mavenTest(localPath).message;
+                    String compileRes = ContinuousIntegrationServer.mavenCompile("repo").message;
+                    String testRes = ContinuousIntegrationServer.mavenTest("repo").message;
 
-                    //mail the result
-                    //store the build
+                    // mail the result
+                    // store the build
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
