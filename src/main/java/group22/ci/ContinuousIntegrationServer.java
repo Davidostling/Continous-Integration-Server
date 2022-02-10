@@ -59,15 +59,149 @@ public class ContinuousIntegrationServer extends AbstractHandler {
             System.out.println("GET");
         }
 
-        // here you do all the continuous integration tasks
-        // for example
-        // 1st clone your repository
-        // 2nd compile the code
-        
+       
         response.getWriter().println("CI job done");
 
 
     }
+	
+	/*
+	* Function that runs both the maven compile command
+	*
+	* @param path			a String representation of the path for where to run maven
+	* @return MavenResult 	a MavenResult instance that holds the results of running maven
+	*/
+	public static MavenResult mavenCompile(String mavenPath) throws IOException{
+		MavenResult temp;
+		
+		try{
+			// The path to the location of the maven project
+			String path = mavenPath;
+			
+			
+			// Run the maven compile command and store output
+            ArrayList output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml compile");
+			
+			//Store exit status
+			int exitStatus = Integer.parseInt(output.get(output.size() - 1).toString());
+			
+			// Create a MavenResult instance depending on the results of running maven compile
+			if(exitStatus == 0){
+				temp = new MavenResult(true, "Project compiled successfully");
+				return temp;
+			}
+			if(exitStatus == 1){
+				temp = new MavenResult(false, "Project failed to compile due to an compilation error");
+				return temp;
+			}
+			
+			for (int i = 0; i < output.size(); i++){
+                        System.out.println(output.get(i));
+			}
+				
+			
+        }   
+            catch (IOException e) { 
+                System.err.println(e); 
+            }
+		
+		// Something has gone wrong
+		temp = new MavenResult(false, "ERROR");
+		return temp;
+			
+	}
+	
+	/*
+	* Function that runs both the maven test command
+	*
+	* @param path			a String representation of the path for where to run maven
+	* @return MavenResult 	a MavenResult instance that holds the results of running maven
+	*/
+	public static MavenResult mavenTest(String mavenPath) throws IOException{
+		MavenResult temp;
+		
+		try{
+			// The path to the location of the maven project
+			String path = mavenPath;
+			
+			
+            // Run the maven test command and store output
+            ArrayList output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml test");
+			
+			//Store exit status
+			int exitStatus = Integer.parseInt(output.get(output.size() - 1).toString());
+			
+			// Create a MavenResult instance depending on the results of running maven test
+			if(exitStatus == 0){
+				temp = new MavenResult(true, "All tests have passed been cleared successfully");
+				return temp;
+			}
+			if(exitStatus == 1){
+				temp = new MavenResult(false, "At least one test has failed");
+				return temp;
+			}
+			
+			
+			for (int i = 0; i < output.size(); i++){
+                        System.out.println(output.get(i));
+			}
+				
+			
+        }   
+            catch (IOException e) { 
+                System.err.println(e); 
+            }
+		
+		// Something has gone wrong
+		temp = new MavenResult(false, "ERROR");
+		return temp;
+	}
+	
+	
+	
+	/*
+	* Function that runs a command determined by the given parameter
+	*
+	* @param cmd		a String representation of the command to run
+	* @return ArrayList	an ArrayList representing the resulting output of running the command
+	*/
+	static public String[] runCommand(String cmd) throws IOException{
+		
+        // Create a list for storing output.
+        ArrayList output = new ArrayList();
+		
+        // Execute a command and get its process handle
+        Process proc = Runtime.getRuntime().exec(cmd);
+		
+        // Get the handle for the processes InputStream
+        InputStream input = proc.getInputStream();
+		
+        // Create a BufferedReader and set it to read from from inputstream
+        BufferedReader br = new BufferedReader(new InputStreamReader(input));
+        String temp;
+		
+		// As long as the current next line in BufferedReader is not null
+		// Add to output list
+        while ((temp = br.readLine()) != null) 
+            output.add(temp);
+		
+            // Wait for process to terminate and catch any Exceptions.
+            try { 
+                proc.waitFor(); 
+                }
+            catch (InterruptedException e) {
+                System.err.println("Process was interrupted"); 
+                }
+				
+			// Add the exit value to the ArrayList
+			output.add(proc.exitValue());
+				
+            br.close();
+		
+            return output;
+	}
+	
+	
 
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception {
