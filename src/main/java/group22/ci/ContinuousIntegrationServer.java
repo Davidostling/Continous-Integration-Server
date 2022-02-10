@@ -31,23 +31,40 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         // for example
         // 1st clone your repository
         // 2nd compile the code
-		// 3rd run maven();
+		// 3rd run maven(PathTOMavenProject);
 
         response.getWriter().println("CI job done");
     }
 	
 	/*
-	* Function that runs the maven test command
+	* Function that runs both the maven compile and test commands
+	*
+	* @param path		a String representation of the path for where to run maven
 	*/
-	public static void maven() throws IOException{
+	public static void maven(String mavenPath) throws IOException{
 		try{
-            // Run the maven test command and store output
-            String output[] = runCommand("cmd.exe /c mvn test");
+			// The path to the location of the maven project
+			String path = mavenPath;
 			
-            // Print the output to screen.
-			for (int i = 0; i < output.length; i++){
-                System.out.println(output[i]);
+			
+			// Run the maven compile command and store output
+            ArrayList output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml compile");
+			
+			// Print exit status
+			System.out.println("Exit status compile: " + output.get(output.size() - 1));
+			
+			
+            // Run the maven test command and store output
+            output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml test");
+			
+			// Print exit status
+			System.out.println("Exit status test: " + output.get(output.size() - 1));
+			
+            // Print the test results
+			if(output.size() > 9){
+				System.out.println(output.get(output.size() - 9));
 			}
+			
         }   
             catch (IOException e) { 
                 System.err.println(e); 
@@ -58,7 +75,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 	* Function that runs a command determined by the given parameter
 	*
 	* @param cmd		a String representation of the command to run
-	* @return String	a String representing the resulting output of running the command
+	* @return ArrayList	an ArrayList representing the resulting output of running the command
 	*/
 	static public String[] runCommand(String cmd) throws IOException{
 		
@@ -88,14 +105,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
                 System.err.println("Process was interrupted"); 
                 }
 				
-			// Print the exit value
-			System.out.println(proc.exitValue());
+			// Add the exit value to the ArrayList
+			output.add(proc.exitValue());
 				
             br.close();
-			
-            // Convert the list to a String and return
 		
-            return (String[])output.toArray(new String[0]);
+            return output;
 	}
 	
 	
