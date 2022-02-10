@@ -37,11 +37,14 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     }
 	
 	/*
-	* Function that runs both the maven compile and test commands
+	* Function that runs both the maven compile command
 	*
-	* @param path		a String representation of the path for where to run maven
+	* @param path			a String representation of the path for where to run maven
+	* @return MavenResult 	a MavenResult instance that holds the results of running maven
 	*/
-	public static void maven(String mavenPath) throws IOException{
+	public static MavenResult mavenCompile(String mavenPath) throws IOException{
+		MavenResult temp;
+		
 		try{
 			// The path to the location of the maven project
 			String path = mavenPath;
@@ -50,26 +53,82 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 			// Run the maven compile command and store output
             ArrayList output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml compile");
 			
-			// Print exit status
-			System.out.println("Exit status compile: " + output.get(output.size() - 1));
+			//Store exit status
+			int exitStatus = Integer.parseInt(output.get(output.size() - 1).toString());
 			
-			
-            // Run the maven test command and store output
-            output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml test");
-			
-			// Print exit status
-			System.out.println("Exit status test: " + output.get(output.size() - 1));
-			
-            // Print the test results
-			if(output.size() > 9){
-				System.out.println(output.get(output.size() - 9));
+			// Create a MavenResult instance depending on the results of running maven compile
+			if(exitStatus == 0){
+				temp = new MavenResult(true, "Project compiled successfully");
+				return temp;
 			}
+			if(exitStatus == 1){
+				temp = new MavenResult(false, "Project failed to compile due to an compilation error");
+				return temp;
+			}
+			
+			for (int i = 0; i < output.size(); i++){
+                        System.out.println(output.get(i));
+			}
+				
 			
         }   
             catch (IOException e) { 
                 System.err.println(e); 
             }
+		
+		// Something has gone wrong
+		temp = new MavenResult(false, "ERROR");
+		return temp;
+			
 	}
+	
+	/*
+	* Function that runs both the maven test command
+	*
+	* @param path			a String representation of the path for where to run maven
+	* @return MavenResult 	a MavenResult instance that holds the results of running maven
+	*/
+	public static MavenResult mavenTest(String mavenPath) throws IOException{
+		MavenResult temp;
+		
+		try{
+			// The path to the location of the maven project
+			String path = mavenPath;
+			
+			
+            // Run the maven test command and store output
+            ArrayList output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml test");
+			
+			//Store exit status
+			int exitStatus = Integer.parseInt(output.get(output.size() - 1).toString());
+			
+			// Create a MavenResult instance depending on the results of running maven test
+			if(exitStatus == 0){
+				temp = new MavenResult(true, "All tests have passed been cleared successfully");
+				return temp;
+			}
+			if(exitStatus == 1){
+				temp = new MavenResult(false, "At least one test has failed");
+				return temp;
+			}
+			
+			
+			for (int i = 0; i < output.size(); i++){
+                        System.out.println(output.get(i));
+			}
+				
+			
+        }   
+            catch (IOException e) { 
+                System.err.println(e); 
+            }
+		
+		// Something has gone wrong
+		temp = new MavenResult(false, "ERROR");
+		return temp;
+	}
+	
+	
 	
 	/*
 	* Function that runs a command determined by the given parameter
