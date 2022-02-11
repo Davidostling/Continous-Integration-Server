@@ -75,31 +75,51 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 	*/
 	public static MavenResult mavenCompile(String mavenPath) throws IOException{
 		MavenResult temp;
+		
+		String timePattern = ".+Total time:.+";
+		String datePattern = ".+Finished at:.+";
+		String message = "";
+		String details = "";
+		
 		try{
 			// The path to the location of the maven project
 			String path = mavenPath;
+			
 			// Run the maven compile command and store output
             ArrayList<String> output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml compile");
 
 			//Store exit status
 			int exitStatus = Integer.parseInt(output.get(output.size() - 1));
+			
+			// Itterate over the output
+			for (int i = 0; i < output.size(); i++){
+				// Store the current line as a string
+				String line = output.get(i).toString();
+				
+				// check for the lines holding the runtime and date of compilation
+				if(line.matches(timePattern) || line.matches(datePattern)){
+					message = message + " || " + line.substring(7);
+				}
+	
+			}
 
 			// Create a MavenResult instance depending on the results of running maven compile
 			if(exitStatus == 0){
-				temp = new MavenResult(true, "Project compiled successfully");
+				temp = new MavenResult(true, "Project compiled successfully" + message);
+				temp.setDetails(details);
 				return temp;
 			}
 			if(exitStatus == 1){
-				temp = new MavenResult(false, "Project failed to compile due to an compilation error");
+				temp = new MavenResult(false, "Project failed to compile due to an compilation error" + message);
+				temp.setDetails(details);
 				return temp;
 			}
-			for (int i = 0; i < output.size(); i++){
-                System.out.println(output.get(i));
-			}
+
         }
         catch (IOException e) { 
             System.err.println(e); 
         }
+		
 		// Something has gone wrong
 		temp = new MavenResult(false, "ERROR");
 		return temp;
@@ -114,29 +134,59 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 	public static MavenResult mavenTest(String mavenPath) throws IOException{
 		MavenResult temp;
 		
+		String timePattern = ".+Total time:.+";
+		String datePattern = ".+Finished at:.+";
+		String testPattern = ".+Running.+";
+		String failPattern = ".ERROR. Failures:.+";
+		String message = "";
+		String details = "";
+		
 		try{
 			// The path to the location of the maven project
 			String path = mavenPath;
+			
             // Run the maven test command and store output
             ArrayList<String> output = runCommand("cmd.exe /c mvn -f " + path + "pom.xml test");
+			
 			//Store exit status
 			int exitStatus = Integer.parseInt(output.get(output.size() - 1).toString());
+			
+			// Itterate over the output
+			for (int i = 0; i < output.size(); i++){
+				// Store the current line as a string
+				String line = output.get(i).toString();
+				
+				// check for the lines holding the runtime and date of compilation
+				if(line.matches(timePattern) || line.matches(datePattern)){
+					message = message + " || " + line.substring(7);
+				}
+				
+				if(line.matches(testPattern) || line.matches(failPattern)){
+					// Store next line
+					String line2 = output.get(i + 1).toString();
+					
+					// Add test message to details
+					details = details + System.lineSeparator() + line + System.lineSeparator() + line2;
+				}
+	
+			}
+			
 			// Create a MavenResult instance depending on the results of running maven test
 			if(exitStatus == 0){
-				temp = new MavenResult(true, "All tests have passed been cleared successfully");
+				temp = new MavenResult(true, "All tests have passed been cleared successfully" + message);
+				temp.setDetails(details);
 				return temp;
 			}
 			if(exitStatus == 1){
-				temp = new MavenResult(false, "At least one test has failed");
+				temp = new MavenResult(false, "At least one test has failed" + message);
+				temp.setDetails(details);
 				return temp;
-			}
-			for (int i = 0; i < output.size(); i++){
-                        System.out.println(output.get(i));
 			}
         }
             catch (IOException e) { 
                 System.err.println(e); 
             }
+			
 		// Something has gone wrong
 		temp = new MavenResult(false, "ERROR");
 		return temp;
