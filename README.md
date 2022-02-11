@@ -2,11 +2,21 @@ Continuous Integration is a simple Continuious Integration (CI) server that allo
 compilation, testing and notification based upon a specified github action.
 
 <!-- ADD MORE IN DEPTH PARAGRAPH DESCRIBING PROJECT -->
+Continuous Integration is a CI server that will after recieveing a JSON package from a github webhook trigger will use jgit to access git functionality. Something that is used to clone the repository for the build that triggered the webhook. After which the server then compiles and runs the tests that the build comes with using maven. A notification will then be sent to the user that is linked action that triggered the webhook that includes information of the result of the compilation and testing of the build. 
+
+This CI server requires that the projects it is used with is compatible with maven (java projects with a maven pom.xml file)
 
 # Running the project
 <!-- 
 DESCRIBE THE STANDARD WAY OF COMPILING AND TESTING
 mvn test for example 
+-->
+Both compiling and testing this project is done using maven
+- mvn compile
+- mvn test
+
+<!-- 
+DESCRIBE SETTING UP THE LOCAL HOST CONNECTION TO ALLOW IT TO RUN AS A SERVER 
 -->
 
 # Compilation and Testing
@@ -29,11 +39,11 @@ GIVE URL FOR BUILD LIST
 -->
 
 # Statement of contribution
-Johan:
-Vilma:
-Zehao:
-Sebaztian: I programmed the runCommand, mavenCompile and mavenTest functions including the documentation of those functions. I also created the base structure for the README documentation.
-David:
+- Johan:
+- Vilma:
+- Zehao:
+- Sebaztian: I programmed the runCommand, mavenCompile and mavenTest functions including the documentation of those functions. I also created the base structure for the README documentation.
+- David:
 
 Skeleton for "The smallest Java Continuous Integration server for Github"
 - Sophie H Ye
