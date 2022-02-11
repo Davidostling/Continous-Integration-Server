@@ -20,7 +20,7 @@ todo
 
 ## Statement of contributions
 
-Johan: 
+Johan: I set up repo to work properly with webhooks. I created the maven project together with David and got the server to run. Me and David also set up the retrievment of the payload and saving the valid information. I also helped Vilma with setting up the cloning of the repo. Me and David set up the three build tests to compile and run its tests. I also made some bug fixes to make the server work properly.
 
 Sebaztian: 
 
