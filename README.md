@@ -26,6 +26,6 @@ Sebaztian:
 
 David: Assisted Johan with getting the skeleton to work properly as well as retrieving the payload and parsing it down so it could be used for later testing (this way we could determine who commited the latest push and e.g. who to send an email to). Also worked on the compile- and unit tests.
 
-Zehao: 
+Zehao: I am in charge of the email notification part. When giving a string message, it could send the notification to the person. Worked on the mail port and set up server email address.
 
 Vilma: 
