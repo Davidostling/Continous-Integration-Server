@@ -28,4 +28,4 @@ David: Assisted Johan with getting the skeleton to work properly as well as retr
 
 Zehao: I am in charge of the email notification part. When giving a string message, it could send the notification to the person. Worked on the mail port and set up server email address.
 
-Vilma: 
+Vilma: Co-authored the implementation of Core CI feature - cloning of the repo so that the remote branch where a change has been made is cloned when our server is triggered by webhook. Also worked on the documentation alongside Sebaztian. 
