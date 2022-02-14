@@ -36,13 +36,15 @@ public class PayLoadHandler {
                             .call();
                     repo.close();
                     String compileRes = ContinuousIntegrationServer.mavenCompile(path + "/").message;
-                    String testRes = ContinuousIntegrationServer.mavenTest(path + "/").message;
+                    MavenResult testRes = ContinuousIntegrationServer.mavenTest(path + "/");
                     System.out.println("==========");
                     System.out.println(compileRes);
-                    System.out.println(testRes);
+                    System.out.println(testRes.message);
                     System.out.println("==========");
 
                     // mail the result
+                    EmailNotification.SendNotification(p.mail, compileRes, testRes.message, testRes.details, p.ref.substring(11));
+
                     // store the build
                 }
             }
