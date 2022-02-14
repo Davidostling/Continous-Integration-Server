@@ -28,6 +28,13 @@
     </dependency>
 
 
+<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+  <groupId>commons-io</groupId>
+  <artifactId>commons-io</artifactId>
+  <version>2.6</version>
+</dependency>
+>>>>>>> origin
 <!-- https://mvnrepository.com/artifact/org.json/json -->
 <dependency>
   <groupId>org.json</groupId>
@@ -68,7 +75,13 @@
   <artifactId>slf4j-jdk14</artifactId>
   <version>2.0.0-alpha0</version>
   <scope>runtime</scope>
-</dependency>  
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
+<dependency>
+  <groupId>org.eclipse.jgit</groupId>
+  <artifactId>org.eclipse.jgit</artifactId>
+  <version>5.4.2.201908231537-r</version>
+</dependency>
 
 </dependencies>
 

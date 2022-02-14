@@ -20,12 +20,12 @@ todo
 
 ## Statement of contributions
 
-Johan: 
+Johan: I set up repo to work properly with webhooks. I created the maven project together with David and got the server to run. Me and David also set up the retrievment of the payload and saving the valid information. I also helped Vilma with setting up the cloning of the repo. Me and David set up the three build tests to compile and run its tests. I also made some bug fixes to make the server work properly.
 
 Sebaztian: 
 
-David:
+David: Assisted Johan with getting the skeleton to work properly as well as retrieving the payload and parsing it down so it could be used for later testing (this way we could determine who commited the latest push and e.g. who to send an email to). Also worked on the compile- and unit tests.
 
-Zehao: 
+Zehao: I am in charge of the email notification part. When giving a string message, it could send the notification to the person. Worked on the mail port and set up server email address.
 
 Vilma: 
