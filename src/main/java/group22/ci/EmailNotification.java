@@ -11,7 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailNotification{
-    public void SendNotification(String to_email) {
+    public static void SendNotification(String to_email, String compileMessage, String testMessage, String testDetails, String branch) {
 
         // Recipient's email ID needs to be mentioned.
         String to = to_email;
@@ -56,10 +56,10 @@ public class EmailNotification{
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("This is the Subject Line!");
+            message.setSubject("Project: CI - Compile and test result for branch " + branch);
 
             // Now set the actual message
-            message.setText("This is actual message");
+            message.setText(compileMessage + "\n" + testMessage + "\n" + testDetails);
 
             System.out.println("sending...");
             // Send message
