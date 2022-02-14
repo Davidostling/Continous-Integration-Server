@@ -43,6 +43,8 @@ public class PayLoadHandler {
                     System.out.println("==========");
 
                     // mail the result
+                    EmailNotification.SendNotification(p.mail);
+
                     // store the build
                 }
             }

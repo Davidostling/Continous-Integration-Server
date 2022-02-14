@@ -11,14 +11,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailNotification{
-
-    public static void main(String[] args) {
+    public void SendNotification(String to_email) {
 
         // Recipient's email ID needs to be mentioned.
-        String to = "Recipient@gmail.com";
+        String to = to_email;
 
         // Sender's email ID needs to be mentioned
-        String from = "Sender@gmail.com";
+        String from = "group22bot@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "imap.gmail.com";
@@ -37,7 +36,7 @@ public class EmailNotification{
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("Sender@gmail.com", "SenderPwd");
+                return new PasswordAuthentication("group22bot@gmail.com", "dd2480group22!");
 
             }
 
