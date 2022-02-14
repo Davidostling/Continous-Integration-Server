@@ -1,13 +1,11 @@
 package group22.ci;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PayLoadHandler {
     ConcurrentLinkedQueue<PayLoad> queue;
@@ -46,6 +44,7 @@ public class PayLoadHandler {
                     EmailNotification.SendNotification(p.mail, compileRes, testRes.message, testRes.details, p.ref.substring(11));
 
                     // store the build
+                    Storage.addToStorage(p, compileRes, testRes);
                 }
             }
         } catch (Exception e) {
