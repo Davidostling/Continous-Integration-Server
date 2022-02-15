@@ -12,10 +12,13 @@ DESCRIBE THE STANDARD WAY OF COMPILING AND TESTING
 mvn test for example 
 -->
 Both compiling and testing this project is done using maven in the base directory
+
 ```mvn compile```
+
 ```mvn test```
 
 Once compiled, to run the project the following maven command should be executed
+
 ```mvn exec:java -Dexec.mainClass="group22.ci.ContinuousIntegrationServer"```
 
 A server is required for the project to work. Something that can be set up using any machine and ngrok or a similar application after the maven execute command. The instructions for which can be found in the [smallest-java-ci](https://github.com/KTH-DD2480/smallest-java-ci) project by following the steps after the compilation stage (With the dependencies and compilation of the project alreayd being handled through maven). The port used for the server set up with ngrok should be the same as the one set in [row 230](https://github.com/Group22DD2480/Continuous-Integration/blob/ef5448618eb132c656ad4b6bccd4c71c117e0ec2/src/main/java/group22/ci/ContinuousIntegrationServer.java#L230) in the ContinuousIntegrationServer.java file. Which is set as port 8022 as a base. If another port is to be used for the server the linked row should be updated to represent the new port used.
@@ -38,7 +41,7 @@ Unit testing of this application was done through creating demo projects that ar
 <!--
 DESCRIBE HOW NOTIFICATION HAS BEEN IMPLEMENTED AND UNIT TESTED
 -->
-The notification of the results is handled using a javax mail server which will once prompted send an email to a specified user (the user connected to the affected build) with a message describing the results of compiling and testing the affected build. A specific gmail address was created to be set as the sender of the notification email to allow for easier access and authentication when multiple people should be allowed access to the sender email.
+The notification of the results is handled using a javax mail server which will once prompted send an email to a specified user (the user connected to the affected build) with a message describing the results of compiling and testing the affected build. A specific gmail address was created to be set as the sender of the notification email to allow for easier access and authentication when multiple people should be allowed access to the sender email, by disabling the 2-step verification and allowing less-secure app usage in the mail setting. We set up a test that successfully send the email and another one failed because of invalid email address. 
 
 <!--# Build-list
 GIVE URL FOR BUILD LIST
