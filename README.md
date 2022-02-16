@@ -6,6 +6,9 @@ Continuous Integration is a CI server based upon the [smallest-java-ci](https://
 
 This CI server requires that the projects it is used with is compatible with maven (java projects with a maven pom.xml file) and is meant to be triggered through the github webhooks service, with the content type being application/json.
 
+# Essence Standard
+The team is most definitely “seeded” (as per the first stage) and the know-how needed to grow the team is indeed in place. We know what has to be done in order to get everyone and everything together. Each and every one of the group members are equally committed to the tasks at hand and we always seem to engage in each task with equal mindsets (as per the “formed” stage). As of now, we believe that we are in the “collaborating” stage as there are still some hick-ups at times in our work which disables us from entering the “performing stage”. As of this lab, we have worked together as a unit for sure but sometimes we get desynchronized which has resulted in some effectiveness deficiencies. To put it shortly, in order to reach the next stage we should try to work more on syncing up our work. Each time someone in the group pushes something all team members should always (unless it’s a small bug fix perhaps) be informed of what has been done and what it enables the group to do from there.
+
 # Running the project
 <!-- 
 DESCRIBE THE STANDARD WAY OF COMPILING AND TESTING
