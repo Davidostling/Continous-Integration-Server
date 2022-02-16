@@ -41,7 +41,7 @@ public class PayLoadHandler {
                     System.out.println("==========");
 
                     // mail the result
-                    // EmailNotification.SendNotification(p.mail, compileRes, testRes.message, testRes.details, p.ref.substring(11));
+                    EmailNotification.SendNotification(p.mail, compileRes, testRes.message, testRes.details, p.ref.substring(11));
 
                     // store the build
                     Storage.addToStorage(p, compileRes, testRes);

@@ -29,8 +29,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
-
-        System.out.println(target);
         if (request.getMethod() == "POST") {
             System.out.println("POST");
             try {
@@ -56,19 +54,27 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 
 
         } else if(request.getMethod() == "GET"){
-            System.out.println("GET");
+			// Display a build or all links to the builds
+			File history = new File("./BuildHistory/index.html");
+        	// Check that logfile exist
+        	if (history.exists()) {
+				FileReader fr;
+				if(target == "/" || target == "/favicon.ico"){
+					// Display all the builds
+					fr = new FileReader("./BuildHistory/index.html");
+				} else {
+					// if accessing information about a specific build
+					fr = new FileReader(target);
+				}
+				int i;
+				// Holds true till there is nothing to read
+				while ((i = fr.read()) != -1)
+
+				// Print all content of file in browser
+				response.getWriter().write(i);
+				fr.close();
+			}
         }
-		// Passing the path to the file as a parameter
-		//TODO change
-		FileReader fr = new FileReader("/Users/vilmajalava/Downloads/soffan/lab2/Continuous-Integration/storage.json");
-		// Declaring loop variable
-		int i;
-		// Holds true till there is nothing to read
-		while ((i = fr.read()) != -1)
-
-			// Print all the content of file in browser
-			response.getWriter().write(i);
-
 	}
 
     public void setPayLoadHandler() throws Exception{

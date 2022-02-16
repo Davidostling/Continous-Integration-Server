@@ -1,45 +1,58 @@
 package group22.ci;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * A class that stores all past builds
+ * An index file holds links to all builds' files
+ */
 public class Storage {
 
-    public static void addToStorage(PayLoad p, String compileRes, MavenResult testRes) throws JSONException, IOException {
 
-        // File history = new File("C:Buildhis/storage.json");
-        File tempDirectory = new File(System.getProperty("java.io.tmpdir"));
-        File history = new File(tempDirectory.getAbsolutePath() + "/storage.txt");
-        // Check that logfile exist
+    /**
+     * Creates index file that holds links to all builds' files
+     */
+    public static void createIndexFile() throws IOException{
+        File history = new File("BuildHistory");
+        // Check that buildlog exist
         if (!history.exists()) {
-            System.out.println("Here");
-            history.createNewFile();
-
+            history.mkdir();
+            File index = new File("./BuildHistory/index.html");
+            index.createNewFile();
         }
-            System.out.println("Here2");
-            //Creating an object of type JSONObject
-            JSONObject jsonObject = new JSONObject();
-            //Inserting relevant values into jsonobject
-            jsonObject.put("ID", p.id);
-            jsonObject.put("Status", compileRes);
-            jsonObject.put("URL", p.url);
-            jsonObject.put("TestRes", testRes.result);
-            jsonObject.put("Date", p.date);
+    }
+    /**
+     * Stores a new build
+     */
+    public static void addToStorage(PayLoad p, String compileRes, MavenResult testRes) throws IOException {
+        createIndexFile();
+        String path = "./BuildHistory/" + p.id + ".html";
+        File build = new File(path);
+        build.createNewFile();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+        bw.write("<p> Commit ID: " + p.id +" </p>\n");
+        bw.write("<p> Compile result: " + compileRes +" </p>\n");
+        bw.write("<p> Test result: " + testRes.getMessage() +" </p>\n");
+        bw.write("<p> Test details: " + testRes.getDetails() +" </p>\n");
+        bw.write("<p> Name: " + p.name +" </p>\n");
+        bw.write("<p> Date: " + p.date +" </p>");
+        bw.close(); //kanske flush
+        updateIndex(p.id, path);
+    }
 
-            try {
-                System.out.println("Here3");
-                FileWriter file = new FileWriter("./Buildhis/storage.json");
-                file.write(jsonObject.toString());
-                file.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("JSON file created: " + jsonObject);
-        }
+    /**
+     * Updates the index file
+     */
+    public static void updateIndex(String id, String path) throws IOException{
+         BufferedWriter bw = new BufferedWriter(new FileWriter("./BuildHistory/index.html", true));
+         bw.write("<p> <a href=\"." + path + "\"> Build for " + id + " </a> </p>\n");
+         bw.close();
+    }
 }
 
 
