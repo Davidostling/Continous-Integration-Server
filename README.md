@@ -48,11 +48,12 @@ GIVE URL FOR BUILD LIST
 -->
 
 # Statement of contribution
-- Johan:
-- Vilma:
-- Zehao:
+
+- Johan: I set up repo to work properly with webhooks. I created the maven project together with David and got the server to run. Me and David also set up the retrievment of the payload and saving the valid information. I also helped Vilma with setting up the cloning of the repo. Me and David set up the three build tests to compile and run its tests. I also made some bug fixes to make the server work properly.
 - Sebaztian: I programmed the runCommand, mavenCompile and mavenTest functions including the documentation of those functions. I also created the base structure for the README documentation including parts of the introduction as well as the documentation on how to set up and run the project including how the different sections was implemented.
-- David:
+- David: Assisted Johan with getting the skeleton to work properly as well as retrieving the payload and parsing it down so it could be used for later testing (this way we could determine who commited the latest push and e.g. who to send an email to). Also worked on the compile- and unit tests.
+- Zehao: I am in charge of the email notification part. When giving a string message, it could send the notification to the person. Worked on the mail port and set up server email address.
+- Vilma: Co-authored the implementation of Core CI feature - cloning of the repo so that the remote branch where a change has been made is cloned when our server is triggered by webhook. Also worked on the documentation alongside Sebaztian. 
 
 Skeleton for "The smallest Java Continuous Integration server for Github"
 - Sophie H Ye
