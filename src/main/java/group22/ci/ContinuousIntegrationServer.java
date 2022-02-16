@@ -59,12 +59,12 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         	// Check that logfile exist
         	if (history.exists()) {
 				FileReader fr;
-				if(target == "/" || target == "/favicon.ico"){
+				if(target.length() < 14) {
 					// Display all the builds
 					fr = new FileReader("./BuildHistory/index.html");
 				} else {
 					// if accessing information about a specific build
-					fr = new FileReader(target);
+					fr = new FileReader("./BuildHistory/" + target.substring(14));
 				}
 				int i;
 				// Holds true till there is nothing to read
@@ -241,7 +241,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 	
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception {
-        Server server = new Server(8022);
+        Server server = new Server(8080);
         ContinuousIntegrationServer ci = new ContinuousIntegrationServer();
         ci.setPayLoadHandler();
         server.setHandler(ci);
