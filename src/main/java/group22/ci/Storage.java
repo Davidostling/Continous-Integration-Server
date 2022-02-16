@@ -9,15 +9,18 @@ import java.io.IOException;
 
 public class Storage {
 
-    public static void addToStorage(PayLoad p, String compileRes, MavenResult testRes) throws JSONException {
+    public static void addToStorage(PayLoad p, String compileRes, MavenResult testRes) throws JSONException, IOException {
 
-        File history = new File("storage.json");
-
+        // File history = new File("C:Buildhis/storage.json");
+        File tempDirectory = new File(System.getProperty("java.io.tmpdir"));
+        File history = new File(tempDirectory.getAbsolutePath() + "/storage.txt");
         // Check that logfile exist
         if (!history.exists()) {
-            // throw någon exeption typ
+            System.out.println("Here");
+            history.createNewFile();
+
         }
-        else {
+            System.out.println("Here2");
             //Creating an object of type JSONObject
             JSONObject jsonObject = new JSONObject();
             //Inserting relevant values into jsonobject
@@ -28,15 +31,15 @@ public class Storage {
             jsonObject.put("Date", p.date);
 
             try {
-                FileWriter file = new FileWriter("storage.json");
+                System.out.println("Here3");
+                FileWriter file = new FileWriter("./Buildhis/storage.json");
                 file.write(jsonObject.toString());
-                file.close();
+                file.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println("JSON file created: " + jsonObject);
         }
-    }
 }
 
 

@@ -1,20 +1,18 @@
 package group22.ci;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.ServletException;
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.json.*;
 
 /**
  * Skeleton of a ContinuousIntegrationServer which acts as webhook
@@ -60,8 +58,18 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         } else if(request.getMethod() == "GET"){
             System.out.println("GET");
         }
-        response.getWriter().println("CI job done");
-    }
+		// Passing the path to the file as a parameter
+		//TODO change
+		FileReader fr = new FileReader("/Users/vilmajalava/Downloads/soffan/lab2/Continuous-Integration/storage.json");
+		// Declaring loop variable
+		int i;
+		// Holds true till there is nothing to read
+		while ((i = fr.read()) != -1)
+
+			// Print all the content of file in browser
+			response.getWriter().write(i);
+
+	}
 
     public void setPayLoadHandler() throws Exception{
         ph = new PayLoadHandler();
