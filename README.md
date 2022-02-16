@@ -30,6 +30,8 @@ The instructions for setting up the github webhook can similarly be found in the
 
 Once that is done, any push to the project the webhook is set up on should be handled by the server and a notification to the affected user should be sent out with th results of compiling and testing the affected build. Something that holds for as long as the server is run. 
 
+Note that the server needs to be run on windows cause we’re using cmd.exe to run maven commands.
+
 # Compilation and Testing
 <!--
 DESCRIBE HOW COMPILATION HAS BEEN IMPLEMENTED AND UNIT TESTED
@@ -39,6 +41,11 @@ DESCRIBE HOW TEST EXECUTION HAS BEEN IMPLEMENTED AND UNIT TESTED
 Both compilation and testing of the build that has triggered the webhook is done by running the two maven commands through the java RunTime enviroment. Which allows for command line commands to be run from a java application. After which what would have been printed in the console instead gets stored by the application. With the desired information from such being returned by the funktions as an MavenResult instance.
 
 Unit testing of this application was done through creating demo projects that are a simple hello_world project with a single test case. With the different demo projects including one with a compilation error, one with a test that fails and one that both compiles properly and the testing is cleared. With the path for each demo project being given to the appropriate maven function after which the results of whcih is then asserted as either true or false depending on the results of the maven command.
+
+# The Store Function
+In order to store payloads we implemented a store function where the CI server keeps the history of the past builds. This history persists even if the server is rebooted. Each build is given a unique URL, that is accessible to get the build information (commit identifier, build date, build logs). One URL exists to list all builds (see below).
+
+URL: http://localhost:8080/
 
 # Notification
 <!--
