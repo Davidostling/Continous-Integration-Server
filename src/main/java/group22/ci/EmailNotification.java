@@ -10,8 +10,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Class to handle the email notification
+ * Sends compile and test result of a build to a given email
+ */
 public class EmailNotification{
-    public static void SendNotification(String to_email, String compileMessage, String testMessage, String testDetails, String branch) {
+    public static boolean SendNotification(String to_email, String compileMessage, String testMessage, String testDetails, String branch) {
 
         // Recipient's email ID needs to be mentioned.
         String to = to_email;
@@ -65,10 +69,11 @@ public class EmailNotification{
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
+            return true;
         } catch (MessagingException mex) {
             mex.printStackTrace();
+            return false;
         }
-
     }
 
 }
