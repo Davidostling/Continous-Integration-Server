@@ -22,11 +22,15 @@
 <dependencies>
 
     <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20090211</version>
+    </dependency>
+    <dependency>
         <groupId>com.sun.mail</groupId>
         <artifactId>javax.mail</artifactId>
         <version>1.6.1</version>
     </dependency>
-
 
 <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 <dependency>
@@ -82,7 +86,6 @@
   <artifactId>org.eclipse.jgit</artifactId>
   <version>5.4.2.201908231537-r</version>
 </dependency>
-
 </dependencies>
 
 <build>
@@ -129,5 +132,6 @@
       </plugin>
     </plugins>
   </pluginManagement>
+
 </build>
 </project>

@@ -1,20 +1,18 @@
 package group22.ci;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.ServletException;
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.json.*;
 
 /**
  * A ContinuousIntegrationServer which acts as a webhook.
@@ -36,7 +34,6 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
 
-        System.out.println(target);
 		//when a push is made to any branch the method will be POST
         if (request.getMethod() == "POST") {
             System.out.println("POST");
@@ -70,10 +67,28 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 
 
         } else if(request.getMethod() == "GET"){
-            System.out.println("GET");
+			// Display a build or all links to the builds
+			File history = new File("./BuildHistory/index.html");
+        	// Check that logfile exist
+        	if (history.exists()) {
+				FileReader fr;
+				if(target.length() < 14) {
+					// Display all the builds
+					fr = new FileReader("./BuildHistory/index.html");
+				} else {
+					// if accessing information about a specific build
+					fr = new FileReader("./BuildHistory/" + target.substring(14));
+				}
+				int i;
+				// Holds true till there is nothing to read
+				while ((i = fr.read()) != -1)
+
+				// Print all content of file in browser
+				response.getWriter().write(i);
+				fr.close();
+			}
         }
-        response.getWriter().println("CI job done");
-    }
+	}
 
     public void setPayLoadHandler() throws Exception{
 		//creates the payloadhandler which creates a queue for all payloads to be handled
@@ -240,7 +255,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
 	
     // used to start the CI server in command line
     public static void main(String[] args) throws Exception {
-        Server server = new Server(8022);
+        Server server = new Server(8080);
         ContinuousIntegrationServer ci = new ContinuousIntegrationServer();
         ci.setPayLoadHandler();
         server.setHandler(ci);
