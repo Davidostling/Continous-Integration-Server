@@ -1,5 +1,8 @@
 package group22.ci;
 
+/**
+ * A class to hold payloads with information about the pusher and branch
+ */
 public class PayLoad {
     String id;
     String date;

@@ -17,12 +17,16 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.json.*;
 
 /**
- * Skeleton of a ContinuousIntegrationServer which acts as webhook
- * See the Jetty documentation for API documentation of those classes.
+ * A ContinuousIntegrationServer which acts as a webhook.
+ * Gets information about the build when a push is made.
  */
 public class ContinuousIntegrationServer extends AbstractHandler {
     PayLoadHandler ph;
+	
     @Override
+	/*
+	* Function for the handle of the server
+	*/
     public void handle(String target,
             Request baseRequest,
             HttpServletRequest request,
@@ -33,18 +37,26 @@ public class ContinuousIntegrationServer extends AbstractHandler {
         baseRequest.setHandled(true);
 
         System.out.println(target);
+		//when a push is made to any branch the method will be POST
         if (request.getMethod() == "POST") {
             System.out.println("POST");
             try {
+				// saving the payload with the relevant information about the build
                 String received = request.getReader().lines().collect(Collectors.joining());
                 JSONObject dataJSON = new JSONObject(received);
+				// the branch for the commit
                 String ref = dataJSON.getString("ref");
                 JSONArray commmitarray = dataJSON.getJSONArray("commits");
                 JSONObject data = commmitarray.getJSONObject(0);
+				// id of the commit
                 String id = data.getString("id");
+				// date of the commit
                 String date = data.getString("timestamp");
+				// name of the commiter
                 String name = data.getJSONObject("author").getString("name");
+				// mail of the commiter
                 String mail = data.getJSONObject("author").getString("email");
+				// url for the repository
                 String url = dataJSON.getJSONObject("repository").getString("html_url");
 
                 //Constructs the payload
@@ -64,6 +76,7 @@ public class ContinuousIntegrationServer extends AbstractHandler {
     }
 
     public void setPayLoadHandler() throws Exception{
+		//creates the payloadhandler which creates a queue for all payloads to be handled
         ph = new PayLoadHandler();
     }
 	
